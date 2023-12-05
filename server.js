@@ -17,7 +17,11 @@ const ConnectionMongoDB = require('./mongodb/ConnectionMongoDB')
 ConnectionMongoDB()
 
 app.get('/',(req, res) => {
-    res.send('homepage')
+    res.send({
+        message : "Succes You Are in Main Routing",
+        StatusText : "Success",
+        StatusCode : 200
+    })
 })
 
 const routes = require('./routes/apiRoutes')
