@@ -1,18 +1,18 @@
-# Todo List API
+# Todo List API 📋
 
 Ini adalah backend untuk aplikasi Todo List.
 
-## Deskripsi
+## Deskripsi 👋 
 
 Backend ini menyediakan endpoint-endpoint untuk manajemen todo list.
 
-## Penggunaan
+## Penggunaan 👩‍💻
 
-### Endpoint
+### Endpoint 📍
 
 Base URL: `https://todo-api-v2.cyclic.app/`
 
-#### Authentication
+#### Authentication 🔑
 
 - Endpoint: `/api/v1/users/register`
   - Method: `POST`
@@ -52,7 +52,7 @@ Base URL: `https://todo-api-v2.cyclic.app/`
     }
     ```
 
-### CRUD TODO
+### CRUD TODO 📝
 - Endpoint: `/api/v1/todo`
   - Method: `POST`
   - Deskripsi: Endpoint untuk membuat todo.
@@ -79,16 +79,43 @@ Base URL: `https://todo-api-v2.cyclic.app/`
             "updatedAt": "date"
             }
     }
+  ```
+
+- Endpoint: `/api/v1/todo`
+  - Method: `GET`
+  - Deskripsi: Endpoint untuk melihat semua todo-list.
+  - Response:
+    ```json
+    {[
+        "message": "message",
+        "todo": {
+            "title": "title",
+            "completed": false,
+            "dueDate": "date",
+            "user": "user_id",
+            "_id": "todoId",
+            "createdAt": "date",
+            "updatedAt": "date"
+            }
+    ]}
     ```
 
+- Endpoint: `/api/v1/todo/:id`
+  - Method: `PUT`
+  - Deskripsi: Endpoint untuk mengupdate todo.
 
-### Menjalankan Aplikasi
+- Endpoint: `/api/v1/todo/:id`
+  - Method: `DELETE`
+  - Deskripsi: Endpoint untuk menghapus todo.
+
+
+### Menjalankan Aplikasi 👩‍💻
 
 Untuk menjalankan aplikasi secara lokal, ikuti langkah-langkah berikut:
 
 1. Salin repositori ini.
 2. Instal dependensi dengan perintah `npm install`.
-3. Konfigurasi variabel lingkungan yang diperlukan seperti database URL, dll.
+3. Konfigurasi variabel environment yang diperlukan seperti database URL.
 4. Jalankan aplikasi dengan perintah `npm run dev`.
 
 
