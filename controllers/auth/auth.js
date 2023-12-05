@@ -35,8 +35,7 @@ async function handleRegis(req, res, next) {
         } else {
             res.send({
                 message: 'Successfully created user data!',
-                access_token: token,
-                statusCode: 200,
+                statusCode: 200
             });
         }
     } catch (error) {
