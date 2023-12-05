@@ -31,20 +31,27 @@ function validationLogin(req, res, next) {
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
-  
+    
     if (token == null) {
-      return res.sendStatus(401);
+        return res.sendStatus(401);
     }
-  
-    jwt.verify(token, 'kunci', (err, user) => {
-      if (err) {
-        console.error(err); // Tambahkan log untuk pesan error
-        return res.sendStatus(403);
-      }
-      req.user = user;
-      next();
+    
+    jwt.verify(token, 'kunci', (err, decoded) => {
+        if (err) {
+            console.error(err);
+            return res.sendStatus(403);
+        }
+        
+        req.user = {
+            user_id: decoded.data.user_id, 
+            username: decoded.data.username, 
+        };
+        console.log(req.user)
+        next();
     });
 }
+
+
 
 
 module.exports = {

@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
+
+//controller
 const todoController = require('../../controllers/todo.js/todo');
+
+//middleware
 const authMiddleware = require('../../middlewares/auth/validation');
 
-// Gunakan middleware pada rute-rute yang memerlukan autentikasi
 router.post('/', authMiddleware.authenticateToken, todoController.createTodo);
 router.get('/', authMiddleware.authenticateToken, todoController.getAllTodos);
 router.get('/:id', authMiddleware.authenticateToken, todoController.getTodoById);

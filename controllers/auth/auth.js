@@ -27,15 +27,6 @@ async function handleRegis(req, res, next) {
 
         const createdUser = await UserModels.create(dataPassingToDB);
 
-        const token = jwt.sign({
-            exp: Math.floor(Date.now() / 1000) + (60 * 60),
-            data: {
-                username,
-                password: encryptedPassword,
-                email
-            }
-        }, 'kunci');
-
         if (!createdUser) {
             res.status(400).send({
                 message: 'Failed to create user',
@@ -81,6 +72,7 @@ async function handleLogin(req, res, next) {
             const token = jwt.sign({
                 exp: Math.floor(Date.now() / 1000) + (60 * 60),
                 data: {
+                    user_id: existingUser._id,
                     username,
                     password: existingUser.password,
                     email: existingUser.email
@@ -101,6 +93,7 @@ async function handleLogin(req, res, next) {
         });
     }
 }
+
 
 module.exports = {
     handleRegis,

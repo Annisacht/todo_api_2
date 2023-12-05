@@ -3,7 +3,7 @@ const Todo = require('../../mongodb/scheme/todo');
 async function createTodo(req, res) {
   try {
     const { title, completed, dueDate } = req.body;
-    const userId = req.user && req.user._id; // Pastikan req.user terdefinisi sebelum mengambil _id
+    const userId = req.user && req.user.user_id; // Pastikan req.user terdefinisi dan mengambil user_id
 
     if (!userId) {
       return res.status(400).json({ message: 'User ID not available' });
@@ -13,7 +13,7 @@ async function createTodo(req, res) {
       title,
       completed,
       dueDate,
-      user: userId,
+      user: userId, // Simpan userId sebagai pembuat Todo
     });
 
     res.status(201).json({
@@ -27,7 +27,7 @@ async function createTodo(req, res) {
 
 async function getAllTodos(req, res) {
   try {
-    const userId = req.user && req.user._id; // Ambil ID pengguna dari autentikasi jika tersedia
+    const userId = req.user && req.user.user_id; // Ambil ID pengguna dari autentikasi jika tersedia
 
     if (!userId) {
       return res.status(400).json({ message: 'User ID not available' });
@@ -44,7 +44,7 @@ async function getAllTodos(req, res) {
 async function getTodoById(req, res) {
   try {
     const { id } = req.params;
-    const userId = req.user && req.user._id; // Ambil ID pengguna dari autentikasi jika tersedia
+    const userId = req.user && req.user.user_id; // Ambil ID pengguna dari autentikasi jika tersedia
 
     if (!userId) {
       return res.status(400).json({ message: 'User ID not available' });
@@ -65,7 +65,7 @@ async function getTodoById(req, res) {
 async function updateTodoById(req, res) {
   try {
     const { id } = req.params;
-    const userId = req.user && req.user._id; // Ambil ID pengguna dari autentikasi jika tersedia
+    const userId = req.user && req.user.user_id;
     const { title, completed, dueDate } = req.body;
 
     if (!userId) {
@@ -82,6 +82,9 @@ async function updateTodoById(req, res) {
       return res.status(404).json({ message: 'Todo not found or unauthorized' });
     }
 
+    // Debugging: Tambahkan log untuk mengecek nilai completed yang berhasil diupdate
+    console.log('Nilai completed yang berhasil diupdate:', updatedTodo.completed);
+
     res.status(200).json({
       message: 'Todo updated successfully',
       todo: updatedTodo,
@@ -91,10 +94,12 @@ async function updateTodoById(req, res) {
   }
 }
 
+
+
 async function deleteTodoById(req, res) {
   try {
     const { id } = req.params;
-    const userId = req.user && req.user._id; // Ambil ID pengguna dari autentikasi jika tersedia
+    const userId = req.user && req.user.user_id; // Ambil ID pengguna dari autentikasi jika tersedia
 
     if (!userId) {
       return res.status(400).json({ message: 'User ID not available' });
